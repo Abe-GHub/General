@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <title>Healthcare Executive Search Firms — PBM Pilot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Literata:opsz,wght@7..72,650;7..72,750&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f7f6;
+      --paper: #ffffff;
+      --paper-2: #eef2f0;
+      --ink: #13231f;
+      --muted: #53635e;
+      --faint: #76847f;
+      --line: #d6dfdb;
+      --line-strong: #b8c7c1;
+      --accent: #087f6d;
+      --accent-strong: #056858;
+      --accent-soft: #dcefe9;
+      --signal: #a34121;
+      --signal-soft: #f8e5dc;
+      --yellow: #f1c453;
+      --shadow: 0 14px 36px rgba(21, 49, 41, .08);
+      --radius: 14px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101715;
+        --paper: #16201d;
+        --paper-2: #1d2a26;
+        --ink: #edf5f2;
+        --muted: #bac9c4;
+        --faint: #91a49e;
+        --line: #30413c;
+        --line-strong: #465c55;
+        --accent: #56cbb4;
+        --accent-strong: #8bdcca;
+        --accent-soft: #173a32;
+        --signal: #f19a73;
+        --signal-soft: #45291f;
+        --yellow: #e1b54b;
+        --shadow: 0 18px 42px rgba(0, 0, 0, .24);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Sans", sans-serif;
+      line-height: 1.45;
+    }
+    button, input, select { font: inherit; }
+    a { color: inherit; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .hero { padding: 62px 0 28px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .76rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      letter-spacing: .04em;
+    }
+    .eyebrow::before { content: ""; width: 22px; height: 3px; background: var(--yellow); border-radius: 8px; }
+    h1, h2, h3 { font-family: "Literata", serif; margin: 0; line-height: 1.08; }
+    h1 { font-size: clamp(2.25rem, 5vw, 4.9rem); max-width: 900px; letter-spacing: -.045em; margin-top: 16px; }
+    .hero-copy { max-width: 760px; margin: 22px 0 0; font-size: clamp(1.05rem, 1.7vw, 1.28rem); color: var(--muted); }
+    .hero-copy strong { color: var(--ink); font-weight: 650; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 42px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .stat { padding: 24px 26px; background: var(--paper); min-height: 136px; }
+    .stat b { display: block; font-family: "Literata", serif; font-size: 2.4rem; line-height: 1; letter-spacing: -.04em; }
+    .stat span { display: block; margin-top: 10px; color: var(--muted); max-width: 240px; }
+    .stat.signal { position: relative; }
+    .stat.signal::after { content: ""; position: absolute; inset: auto 0 0; height: 4px; background: var(--signal); }
+    .jumpbar { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(12px); border-block: 1px solid var(--line); }
+    .jumpbar-inner { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-height: 58px; padding-block: 7px; }
+    .jumpbar a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: .9rem; padding: 8px 12px; border-radius: 8px; white-space: nowrap; }
+    .jumpbar a:hover, .jumpbar a:focus-visible { color: var(--accent-strong); background: var(--accent-soft); outline: none; }
+    section { padding: 70px 0 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 24px; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 3rem); letter-spacing: -.035em; }
+    .section-head p { color: var(--muted); margin: 0; max-width: 580px; }
+    .signal-grid { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 16px; }
+    .signal-card { padding: 24px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+    .signal-card.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+    @media (prefers-color-scheme: dark) { .signal-card.primary { background: #e6f1ed; color: #14231f; border-color: #e6f1ed; } }
+    .signal-card .tag { font-family: "IBM Plex Mono", monospace; font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--signal); }
+    .signal-card.primary .tag { color: #ffc09f; }
+    .signal-card h3 { margin-top: 14px; font-size: 1.35rem; }
+    .signal-card p { color: var(--muted); margin: 11px 0 0; font-size: .94rem; }
+    .signal-card.primary p { color: color-mix(in srgb, var(--bg) 74%, transparent); }
+    @media (prefers-color-scheme: dark) { .signal-card.primary p { color: #465c55; } }
+    .signal-card a { display: inline-flex; margin-top: 18px; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .toolbar { display: grid; grid-template-columns: 1fr 230px 230px; gap: 10px; margin: 26px 0 14px; }
+    .control { width: 100%; min-height: 46px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--paper); color: var(--ink); padding: 0 14px; }
+    input.control { appearance: none; }
+    .control:focus { outline: 3px solid color-mix(in srgb, var(--accent) 25%, transparent); border-color: var(--accent); }
+    .result-meta { color: var(--muted); font-size: .88rem; margin: 0 0 12px; }
+    .directory { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .table-head { display: grid; grid-template-columns: 145px minmax(210px, 1.15fr) minmax(185px, .9fr) minmax(210px, 1.1fr) 120px 42px; gap: 16px; align-items: center; padding: 13px 18px; background: var(--paper-2); border-bottom: 1px solid var(--line); color: var(--faint); font-family: "IBM Plex Mono", monospace; font-size: .69rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+    .firm-row { background: var(--paper); border-bottom: 1px solid var(--line); }
+    .firm-row:last-child { border-bottom: none; }
+    .row-main { display: grid; grid-template-columns: 145px minmax(210px, 1.15fr) minmax(185px, .9fr) minmax(210px, 1.1fr) 120px 42px; gap: 16px; align-items: center; padding: 18px; min-height: 94px; }
+    .location .state { display: block; font-family: "IBM Plex Mono", monospace; font-size: .73rem; color: var(--faint); }
+    .location b { display: block; margin-top: 3px; }
+    .firm-name a { font-weight: 700; text-decoration: none; }
+    .firm-name a:hover { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 3px; }
+    .firm-name small, .contact small { display: block; color: var(--faint); margin-top: 4px; }
+    .badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 5px 9px; font-size: .76rem; font-weight: 700; line-height: 1.15; }
+    .badge.strong { background: var(--signal-soft); color: var(--signal); }
+    .badge.adjacent { background: var(--accent-soft); color: var(--accent-strong); }
+    .badge.none { color: var(--faint); background: var(--paper-2); }
+    .contact a { color: var(--accent-strong); font-weight: 650; word-break: break-word; text-underline-offset: 3px; }
+    .copy-btn { margin-top: 6px; border: 0; background: none; color: var(--muted); padding: 0; cursor: pointer; font-size: .76rem; text-decoration: underline; text-underline-offset: 3px; }
+    .model { color: var(--muted); font-size: .84rem; }
+    .expand { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--line); background: var(--paper-2); color: var(--ink); border-radius: 50%; cursor: pointer; transition: transform .18s ease; }
+    .expand[aria-expanded="true"] { transform: rotate(45deg); background: var(--accent-soft); color: var(--accent-strong); border-color: transparent; }
+    .row-detail { display: none; grid-template-columns: 1.1fr 1fr .85fr; gap: 28px; padding: 0 18px 22px 179px; }
+    .firm-row.open .row-detail { display: grid; }
+    .detail-block h4 { margin: 0 0 6px; color: var(--faint); font-family: "IBM Plex Mono", monospace; font-size: .68rem; letter-spacing: .05em; text-transform: uppercase; }
+    .detail-block p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .source-chip { display: inline-flex; margin-top: 9px; font-size: .72rem; color: var(--faint); border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; }
+    .empty { padding: 60px 20px; text-align: center; background: var(--paper); color: var(--muted); }
+    .rubric-wrap { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(270px, .65fr); gap: 22px; align-items: start; }
+    .rubric-table { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .rubric-row { display: grid; grid-template-columns: 52px minmax(170px, .7fr) minmax(250px, 1.4fr); gap: 16px; padding: 19px; border-bottom: 1px solid var(--line); }
+    .rubric-row:last-child { border-bottom: 0; }
+    .weight { font-family: "IBM Plex Mono", monospace; color: var(--accent-strong); font-weight: 600; }
+    .rubric-row h3 { font-family: "IBM Plex Sans", sans-serif; font-size: 1rem; letter-spacing: 0; }
+    .rubric-row p { margin: 4px 0 0; color: var(--muted); font-size: .88rem; }
+    .scale { color: var(--muted); font-size: .86rem; }
+    .scale b { color: var(--ink); }
+    .score-guide { background: var(--ink); color: var(--bg); padding: 26px; border-radius: var(--radius); position: sticky; top: 74px; }
+    @media (prefers-color-scheme: dark) { .score-guide { background: #e6f1ed; color: #14231f; } }
+    .score-guide h3 { font-size: 1.45rem; }
+    .formula { font-family: "IBM Plex Mono", monospace; font-size: .78rem; margin: 16px 0 22px; opacity: .8; }
+    .threshold { display: grid; grid-template-columns: 58px 1fr; gap: 10px; padding: 10px 0; border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent); font-size: .9rem; }
+    .threshold b { font-family: "IBM Plex Mono", monospace; }
+    .score-guide small { display: block; opacity: .72; margin-top: 18px; }
+    .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .note { background: var(--paper); border-top: 4px solid var(--yellow); padding: 24px; }
+    .note h3 { font-size: 1.2rem; }
+    .note ul { margin: 14px 0 0; padding-left: 19px; color: var(--muted); }
+    .note li + li { margin-top: 9px; }
+    .source-list { margin: 14px 0 0; padding: 0; list-style: none; }
+    .source-list li { border-top: 1px solid var(--line); padding: 10px 0; }
+    .source-list a { color: var(--accent-strong); font-weight: 600; text-underline-offset: 3px; }
+    footer { margin-top: 72px; padding: 26px 0 38px; border-top: 1px solid var(--line); color: var(--faint); font-size: .83rem; }
+    .toast { position: fixed; left: 50%; bottom: 24px; translate: -50% 20px; background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-size: .85rem; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity .2s ease, translate .2s ease; z-index: 30; }
+    .toast.show { opacity: 1; translate: -50% 0; }
+    @media (prefers-color-scheme: dark) { .toast { background: #e6f1ed; color: #14231f; } }
+    @media (max-width: 900px) {
+      .signal-grid { grid-template-columns: 1fr; }
+      .toolbar { grid-template-columns: 1fr 1fr; }
+      .toolbar input { grid-column: 1 / -1; }
+      .table-head { display: none; }
+      .row-main { grid-template-columns: 95px 1fr 42px; gap: 12px; align-items: start; }
+      .firm-name { grid-column: 2; }
+      .relevance { grid-column: 2; }
+      .contact { grid-column: 2; }
+      .model { grid-column: 2; }
+      .expand { grid-column: 3; grid-row: 1; }
+      .row-detail { padding: 0 18px 22px 125px; grid-template-columns: 1fr; gap: 18px; }
+      .rubric-wrap { grid-template-columns: 1fr; }
+      .score-guide { position: static; }
+    }
+    @media (max-width: 660px) {
+      .shell { width: min(100% - 24px, 1180px); }
+      .hero { padding-top: 38px; }
+      .jumpbar-inner { justify-content: center; }
+      .jumpbar a { padding: 6px 8px; font-size: .82rem; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { min-height: auto; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 12px; }
+      section { padding-top: 54px; }
+      .toolbar { grid-template-columns: 1fr; }
+      .toolbar input { grid-column: auto; }
+      .row-main { grid-template-columns: 1fr 42px; padding: 17px 15px; }
+      .location { grid-column: 1; }
+      .firm-name, .relevance, .contact, .model { grid-column: 1; }
+      .expand { grid-column: 2; grid-row: 1 / span 2; }
+      .row-detail { padding: 0 15px 22px; }
+      .rubric-row { grid-template-columns: 52px 1fr; }
+      .rubric-row .scale { grid-column: 2; }
+      .notes-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <header class="hero shell">
+    <div class="eyebrow">PBM PILOT · RESEARCHED OCT 15, 2026</div>
+    <h1>The search market is broad. The PBM signal is not.</h1>
+    <p class="hero-copy"><strong>Direct Recruiters is the only firm in this 22-firm pilot that names PBM as a practice focus.</strong> Kaye/Bassman and Furst Group offer the clearest adjacent paths through pharmacy and payer work. The directory below separates direct evidence from general healthcare positioning.</p>
+    <div class="stats" aria-label="Research summary">
+      <div class="stat"><b>22</b><span>US-based or US-office search firms reviewed</span></div>
+      <div class="stat signal"><b>1</b><span>firm with explicit PBM practice evidence</span></div>
+      <div class="stat"><b>2</b><span>strong adjacent signals in pharmacy or managed care</span></div>
+    </div>
+  </header>
+
+  <nav class="jumpbar" aria-label="Page sections">
+    <div class="shell jumpbar-inner">
+      <a href="#signals">PBM signals</a>
+      <a href="#directory">Directory</a>
+      <a href="#rubric">Scoring rubric</a>
+      <a href="#notes">Evidence notes</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="signals" class="shell">
+      <div class="section-head">
+        <div><div class="eyebrow">FIRST PASS</div><h2>Start with the signal</h2></div>
+        <p>Three firms stand apart on segment relevance. The broader proactive-engagement shortlist also includes Caldwell, Buffkin/Baker, and DHR Global for their healthcare-plus-technology coverage.</p>
+      </div>
+      <div class="signal-grid">
+        <article class="signal-card primary">
+          <div class="tag">Explicit PBM focus</div>
+          <h3>Direct Recruiters</h3>
+          <p>Its Health Plan/Payer practice explicitly lists PBM, with adjacent BI/analytics, HEDIS, and data warehousing coverage. It also publishes healthcare-practice contact emails.</p>
+          <a href="https://directrecruiters.com" target="_blank" rel="noopener">Visit firm website ↗</a>
+        </article>
+        <article class="signal-card">
+          <div class="tag">Pharmacy adjacent</div>
+          <h3>Kaye/Bassman</h3>
+          <p>Dedicated Pharmacy Executive Search practice and a published <em>careers@</em> address. No named PBM client was found.</p>
+          <a href="https://www.kbic.com" target="_blank" rel="noopener">Visit firm website ↗</a>
+        </article>
+        <article class="signal-card">
+          <div class="tag">Payer adjacent</div>
+          <h3>Furst Group</h3>
+          <p>Managed-care roots and a documented health-plan president placement. Contact is form or phone; no candidate-facing email was verified.</p>
+          <a href="https://www.furstgroup.com" target="_blank" rel="noopener">Visit firm website ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="directory" class="shell">
+      <div class="section-head">
+        <div><div class="eyebrow">DIRECTORY</div><h2>Firms by location</h2></div>
+        <p>Default order is state, then city. Expand a row for healthcare detail, office reach, and evidence provenance.</p>
+      </div>
+      <div class="toolbar" aria-label="Directory filters">
+        <input id="search" class="control" type="search" placeholder="Search firm, city, practice, or email" aria-label="Search directory">
+        <select id="pbmFilter" class="control" aria-label="Filter by PBM relevance">
+          <option value="all">All PBM signals</option>
+          <option value="strong">Explicit PBM</option>
+          <option value="adjacent">PBM / payer adjacent</option>
+          <option value="none">No public evidence</option>
+        </select>
+        <select id="contactFilter" class="control" aria-label="Filter by contact access">
+          <option value="all">All contact types</option>
+          <option value="published">Published email</option>
+          <option value="candidate">Candidate-friendly email</option>
+          <option value="form">Form / phone only</option>
+        </select>
+      </div>
+      <p id="resultMeta" class="result-meta" aria-live="polite"></p>
+      <div class="directory" role="table" aria-label="Healthcare executive search firms">
+        <div class="table-head" role="row">
+          <div>Location</div><div>Firm</div><div>PBM evidence</div><div>Contact</div><div>Model</div><div></div>
+        </div>
+        <div id="firmRows"></div>
+      </div>
+    </section>
+
+    <section id="rubric" class="shell">
+      <div class="section-head">
+        <div><div class="eyebrow">DECISION MODEL</div><h2>A 100-point engagement rubric</h2></div>
+        <p>Rate each firm 1–5 on all six criteria. Multiply each rating by its weight, divide by five, and add the results.</p>
+      </div>
+      <div class="rubric-wrap">
+        <div class="rubric-table">
+          <div class="rubric-row"><div class="weight">25%</div><div><h3>Healthcare practice depth</h3><p>Rewards firms that live in healthcare and understand payer, PBM, and provider operating models.</p></div><div class="scale"><b>1</b> minor vertical · <b>3</b> named practice · <b>5</b> healthcare-exclusive with segment sub-practices</div></div>
+          <div class="rubric-row"><div class="weight">20%</div><div><h3>PBM / payer evidence</h3><p>Tests whether healthcare positioning translates into trusted work in the target segment.</p></div><div class="scale"><b>1</b> no evidence · <b>3</b> payer/pharmacy adjacent · <b>5</b> named PBM placements or explicit PBM focus</div></div>
+          <div class="rubric-row"><div class="weight">20%</div><div><h3>Data & technology coverage</h3><p>Separates relevant data leadership mandates from clinical or commercial-only search work.</p></div><div class="scale"><b>1</b> clinical/commercial only · <b>3</b> CIO/CTO · <b>5</b> CDO, analytics, data engineering, governance, or AI leadership</div></div>
+          <div class="rubric-row"><div class="weight">15%</div><div><h3>Director+ seniority fit</h3><p>Favors firms that engage below the board and C-suite through professional-search or contingent arms.</p></div><div class="scale"><b>1</b> board/C-suite only · <b>3</b> some VP work · <b>5</b> routine Director/VP placements</div></div>
+          <div class="rubric-row"><div class="weight">10%</div><div><h3>Geographic reach</h3><p>National reach creates more shots on goal across distributed payers and PBMs.</p></div><div class="scale"><b>1</b> single metro · <b>3</b> regional/multi-office · <b>5</b> national, 10+ offices, or demonstrably national practice</div></div>
+          <div class="rubric-row"><div class="weight">10%</div><div><h3>Engagement accessibility</h3><p>Measures whether a candidate can reach a relevant human rather than disappear into a form.</p></div><div class="scale"><b>1</b> form only · <b>3</b> named leader/marketing contact · <b>5</b> general, practice, or careers email</div></div>
+        </div>
+        <aside class="score-guide">
+          <h3>Interpret the total</h3>
+          <div class="formula">Σ (rating × weight ÷ 5)</div>
+          <div class="threshold"><b>80+</b><span>Engage proactively with resume and positioning</span></div>
+          <div class="threshold"><b>60–79</b><span>Engage selectively through a named practice leader</span></div>
+          <div class="threshold"><b>40–59</b><span>Monitor placed-role announcements and openings</span></div>
+          <div class="threshold"><b>&lt;40</b><span>Deprioritize for this use case</span></div>
+          <small>Evidence should drive the rating. “No public evidence” is not the same as “no experience,” but it should score conservatively.</small>
+        </aside>
+      </div>
+    </section>
+
+    <section id="notes" class="shell">
+      <div class="section-head">
+        <div><div class="eyebrow">EVIDENCE</div><h2>What the pilot could—and could not—verify</h2></div>
+      </div>
+      <div class="notes-grid">
+        <article class="note">
+          <h3>Important limits</h3>
+          <ul>
+            <li>No firm publicly named Express Scripts, CVS Caremark, OptumRx, Prime Therapeutics, MedImpact, or Navitus as a placement client.</li>
+            <li>PBM relevance therefore rests on practice-area statements, pharmacy focus, or payer/managed-care history—not disclosed client mandates.</li>
+            <li>Only WittKieffer, Furst Group, and Direct Recruiters homepages were read live. Other profiles are web-index sourced and should be rechecked before outreach.</li>
+            <li>Where only a press, marketing, or executive email was found, it is marked “best available,” not candidate-facing.</li>
+          </ul>
+        </article>
+        <article class="note">
+          <h3>Selected supporting sources</h3>
+          <ul class="source-list">
+            <li><a href="https://directrecruiters.com/practice-areas/health-plan-payer-practice/" target="_blank" rel="noopener">Direct Recruiters — Health Plan/Payer practice ↗</a></li>
+            <li><a href="https://huntscanlon.com/wp-content/uploads/2026/06/ESR_Healthcare_top50.pdf" target="_blank" rel="noopener">Hunt Scanlon — 2026 Top 50 Healthcare Search Firms ↗</a></li>
+            <li><a href="https://huntscanlon.com/furst-group-assists-priority-health-in-president-search/" target="_blank" rel="noopener">Furst Group — Priority Health president search ↗</a></li>
+            <li><a href="https://kbiclivesitstg.wpenginepowered.com/wp-content/uploads/2022/11/KBIC-Healthcare-Pharmacy-Recruiting-Brochure-2020.pdf" target="_blank" rel="noopener">Kaye/Bassman — Healthcare Pharmacy brochure ↗</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="shell">Research snapshot: October 15, 2026. Contact details and office footprints can change; verify on the linked firm site before outreach.</div></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const firms = [
+      {firm:"Korn Ferry",url:"https://www.kornferry.com",city:"Los Angeles",state:"CA",offices:"100+ offices in 50+ countries; US offices listed include Atlanta, Boston, Chicago, Dallas, Houston, Kansas City, Miami, Minneapolis, and New York.",contact:"Contact form / 800-633-4410",email:"",contactType:"form",health:"Global Healthcare Services practice; president reported as Greg Button.",pbm:"No public evidence",pbmType:"none",model:"Retained + professional search / interim",source:"Web-index sourced"},
+      {firm:"McGovern Executive Search",url:"http://www.mcgovernexecutivesearch.com",city:"Washington",state:"DC",offices:"None; single office.",contact:"Contact form / 703-525-0508",email:"",contactType:"form",health:"Founder-led boutique exclusively focused on healthcare, including health plans, health systems, and provider groups.",pbm:"Payer-focused boutique; no named PBM client",pbmType:"adjacent",model:"Retained",source:"Web-index sourced"},
+      {firm:"Kirby Bates Associates",url:"https://kirbybates.com",city:"Alpharetta",state:"GA",offices:"National reach; legacy office in Bala Cynwyd, Pennsylvania.",contact:"corporate@kirbybates.com",email:"corporate@kirbybates.com",contactType:"published",health:"Healthcare-exclusive with nurse executive and healthcare leadership search, interim, and advisory work.",pbm:"No public evidence",pbmType:"none",model:"Retained",source:"Web-index sourced · email published by firm"},
+      {firm:"Comhar Partners",url:"https://comharpartners.com",city:"Chicago",state:"IL",offices:"New York, San Francisco, Denver, Atlanta, South Florida, and Mid-Atlantic reported.",contact:"Contact form; marketing: jbarnes@comharpartners.com",email:"jbarnes@comharpartners.com",contactType:"press",health:"Healthcare & Life Sciences practice led by Marion Spears Karr, FACHE, in Atlanta.",pbm:"No public evidence",pbmType:"none",model:"Retained + professional recruiting / advisory",source:"Web-index sourced · marketing email only"},
+      {firm:"DHR Global (DHR International)",url:"https://www.dhrinternational.com",city:"Chicago",state:"IL",offices:"50+ wholly owned offices worldwide, including Boston.",contact:"Contact form only",email:"",contactType:"form",health:"Healthcare practice; managing partners reported as John Baker and Joan Gee. Also has Advanced Technology coverage.",pbm:"No public evidence",pbmType:"none",model:"Retained",source:"Web-index sourced"},
+      {firm:"Heidrick & Struggles",url:"https://www.heidrick.com",city:"Chicago",state:"IL",offices:"Global; US leadership reported for Chicago, Washington DC, New York/Stamford, and other offices.",contact:"Contact form only",email:"",contactType:"form",health:"Healthcare & Life Sciences practice; Americas lead reported as Ina Sood.",pbm:"No public evidence",pbmType:"none",model:"Retained + leadership consulting",source:"Web-index sourced"},
+      {firm:"Spencer Stuart",url:"https://www.spencerstuart.com",city:"Chicago",state:"IL",offices:"60+ offices in 30+ countries; US offices include Chicago, New York, and San Francisco.",contact:"Contact form only; press email excluded",email:"",contactType:"form",health:"Healthcare practice led globally by Alexis Stiles; also biopharma consultants.",pbm:"No public evidence",pbmType:"none",model:"Retained + board / leadership advisory",source:"Web-index sourced"},
+      {firm:"Furst Group",url:"https://www.furstgroup.com",city:"Rockford",state:"IL",offices:"Phoenix, Radnor, San Francisco, Brentwood, Chicago, Irving, Minneapolis, Seattle, St. Louis, and Washington DC reported; currency not verified.",contact:"Contact form / 800-642-9940",email:"",contactType:"form",health:"Healthcare and life-sciences exclusive; managed-care roots across payers, providers, life sciences, and pharma.",pbm:"Managed-care/payer roots; Priority Health president placement",pbmType:"adjacent",model:"Retained",source:"Homepage read live · office list web-index sourced"},
+      {firm:"WittKieffer",url:"https://www.wittkieffer.com",city:"Oak Brook",state:"IL",offices:"Global reach through Witt/Kieffer International; exact US list is on the firm site.",contact:"pthomas@wittkieffer.com",email:"pthomas@wittkieffer.com",contactType:"press",health:"Healthcare, life sciences, and education specialist; IT practice and Professional Search for mid-level roles. Combined with Ross & Company in Dec. 2025.",pbm:"No public evidence",pbmType:"none",model:"Retained + professional search / interim",source:"Homepage read live · press contact only"},
+      {firm:"Catalyst Advisors LP",url:"https://www.catalystadvisorslp.com",city:"New York",state:"NY",offices:"Boston, Los Angeles, and London.",contact:"Contact form; marketing: rrama@catalystadvisorslp.com",email:"rrama@catalystadvisorslp.com",contactType:"press",health:"Focused on life sciences—biopharma, biotech, diagnostics, and medtech. Payer/PBM is not core.",pbm:"No public evidence",pbmType:"none",model:"Executive search (retained implied)",source:"Web-index sourced · marketing email only"},
+      {firm:"Russell Reynolds Associates",url:"https://www.russellreynolds.com",city:"New York",state:"NY",offices:"40+ offices globally; US offices include New York, Atlanta, Boston, and Chicago.",contact:"Contact form / +1-212-351-2000",email:"",contactType:"form",health:"Global Healthcare practice led by Ernie Brittingham.",pbm:"No public evidence",pbmType:"none",model:"Retained + leadership advisory",source:"Web-index sourced"},
+      {firm:"Solomon Page",url:"https://www.solomonpage.com",city:"New York",state:"NY",offices:"Hauppauge, El Segundo, Cary, San Diego, Steamboat Springs, Columbus, Andover, and London.",contact:"Contact form / (212) 403-6100",email:"",contactType:"form",health:"Healthcare & Life Sciences executive search led globally by Marc Gouran, MD; serves AMCs, health systems, and IDNs.",pbm:"No public evidence",pbmType:"none",model:"Retained + contingent / contract staffing",source:"Web-index sourced"},
+      {firm:"Direct Recruiters",url:"https://directrecruiters.com",city:"Solon",state:"OH",offices:"No other office found; national affiliation through Starfish Partners.",contact:"msilverstein@directrecruiters.com · dgorstein@directrecruiters.com",email:"msilverstein@directrecruiters.com",contactType:"candidate",health:"Healthcare IT & Life Sciences, Health Plan/Payer, Population Health, and Healthcare Technology & Innovation practices.",pbm:"PBM explicitly named in Health Plan/Payer practice",pbmType:"strong",model:"Retained + contingent / contract staffing",source:"Homepage read live · practice emails published by firm"},
+      {firm:"Ratliff (formerly Ratliff & Taylor)",url:"https://ratliffandcompany.com",city:"Cleveland",state:"OH",offices:"Northeast Ohio base with national client reach.",contact:"info@ratliffandcompany.com",email:"info@ratliffandcompany.com",contactType:"published",health:"Generalist talent consultancy; healthcare is one industry served, with healthcare executive-search leadership.",pbm:"No public evidence",pbmType:"none",model:"Retained + leadership / career transition",source:"Web-index sourced · email published by firm"},
+      {firm:"Diversified Search Group",url:"https://diversifiedsearchgroup.com",city:"Philadelphia",state:"PA",offices:"Atlanta, Chicago, Cleveland, Los Angeles, Miami, New York, San Francisco, and Washington DC; global via AltoPartners.",contact:"Contact form; marketing: slma.shelbayah@divsearch.com",email:"slma.shelbayah@divsearch.com",contactType:"press",health:"Dedicated Healthcare practice; acquired BioQuest. Ed Stout reported as a managing director.",pbm:"No public evidence",pbmType:"none",model:"Retained",source:"Web-index sourced · marketing email only"},
+      {firm:"Buffkin / Baker",url:"https://buffkinbaker.com",city:"Nashville",state:"TN",offices:"Atlanta, Austin, Boston, Charlotte, Chattanooga, Chicago, Cleveland, Kansas City, Los Angeles, New York, San Francisco, Seattle, St. Simons Island, Tampa, Washington DC, and Winston-Salem; global via Panorama Search.",contact:"info@buffkinbaker.com",email:"info@buffkinbaker.com",contactType:"published",health:"Dedicated Healthcare and Technology practices; reported as the largest Nashville healthcare search firm.",pbm:"Payer-adjacent clients reported; no direct PBM evidence",pbmType:"adjacent",model:"Retained",source:"Web-index sourced · email published by firm"},
+      {firm:"Caldwell",url:"https://www.caldwell.com",city:"Nashville",state:"TN",offices:"US healthcare hub in Nashville; corporate HQ Toronto. Multiple US offices including the New York area; full footprint not verified.",contact:"clomot@caldwell.com",email:"clomot@caldwell.com",contactType:"press",health:"Life Sciences & Healthcare practice co-led by John Blank and Steven Price; reported Chief Data Officer placement at eHealth.",pbm:"No public evidence",pbmType:"none",model:"Retained",source:"Web-index sourced · marketing contact only"},
+      {firm:"AMN Healthcare — Leadership Solutions",url:"https://www.amnhealthcare.com",city:"Dallas",state:"TX",offices:"National footprint; legacy offices include Hingham, Atlanta, Chicago, Los Angeles, and Philadelphia.",contact:"Contact form / 800-887-1456",email:"",contactType:"form",health:"Healthcare-only executive search, interim leadership, and physician leadership search. Phillips DiPisa was folded into AMN in 2020.",pbm:"No public evidence",pbmType:"none",model:"Retained + interim / staffing",source:"Web-index sourced"},
+      {firm:"Bryant Group",url:"https://www.bryantgrp.com",city:"Irving",state:"TX",offices:"Associates reported across Florida, Idaho, Indiana, Michigan, Missouri, Pennsylvania, Tennessee, Texas, and Washington.",contact:"info@bryantgrp.com",email:"info@bryantgrp.com",contactType:"published",health:"Executive search and leadership consulting for higher education, healthcare, and nonprofits; woman-owned.",pbm:"No public evidence",pbmType:"none",model:"Retained",source:"Web-index sourced · email published by firm"},
+      {firm:"Allen Austin",url:"https://www.allenaustin.com",city:"Houston",state:"TX",offices:"13 cities across North America, Europe, and Latin America reported.",contact:"randrews@allenaustin.com",email:"randrews@allenaustin.com",contactType:"press",health:"Life Sciences coverage plus CIO/CISO functional practices; healthcare is not a dedicated practice.",pbm:"No public evidence",pbmType:"none",model:"Retained + contingent / interim",source:"Web-index sourced · CEO email only"},
+      {firm:"Kaye/Bassman International (KBIC)",url:"https://www.kbic.com",city:"Plano",state:"TX",offices:"Single site; reported as the largest single-site search firm in the US.",contact:"careers@kbic.com",email:"careers@kbic.com",contactType:"candidate",health:"Healthcare recruiting with dedicated Pharmacy Executive Search and Pharmaceutical practices.",pbm:"Dedicated pharmacy practice; no named PBM client",pbmType:"adjacent",model:"Retained and/or contingency",source:"Web-index sourced · careers email published by firm"},
+      {firm:"Slone Partners",url:"https://www.slonepartners.com",city:"South Riding",state:"VA",offices:"Boston, Washington DC, San Francisco, San Diego, Austin, Research Triangle Park, and Fort Lauderdale.",contact:"info@slonepartners.com",email:"info@slonepartners.com",contactType:"published",health:"Healthcare and life sciences across diagnostics, clinical trials, precision medicine, lab services, and Healthcare IT.",pbm:"No public evidence",pbmType:"none",model:"Retained + advisory / fractional talent",source:"Web-index sourced · HQ has conflicting listings"}
+    ];
+
+    const rows = document.getElementById('firmRows');
+    const search = document.getElementById('search');
+    const pbmFilter = document.getElementById('pbmFilter');
+    const contactFilter = document.getElementById('contactFilter');
+    const resultMeta = document.getElementById('resultMeta');
+    const toast = document.getElementById('toast');
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"]/g, function(char) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[char]; });
+    }
+    function badgeLabel(type) {
+      return type === 'strong' ? 'Explicit PBM' : type === 'adjacent' ? 'Adjacent signal' : 'No public evidence';
+    }
+    function contactMarkup(firm) {
+      if (!firm.email) return `<span>${escapeHtml(firm.contact)}</span><small>No published email verified</small>`;
+      const note = firm.contactType === 'candidate' ? 'Candidate-friendly' : firm.contactType === 'published' ? 'Published by firm' : 'Best available; not candidate-facing';
+      const emails = firm.contact.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || [firm.email];
+      const links = emails.map(address => `<a href="mailto:${escapeHtml(address)}">${escapeHtml(address)}</a>`).join(' · ');
+      return `${links}<small>${note}</small><button class="copy-btn" type="button" data-copy="${escapeHtml(firm.email)}">Copy email</button>`;
+    }
+    function render() {
+      const q = search.value.trim().toLowerCase();
+      const pbm = pbmFilter.value;
+      const contact = contactFilter.value;
+      const filtered = firms.filter(f => {
+        const haystack = [f.firm,f.city,f.state,f.offices,f.contact,f.health,f.pbm,f.model].join(' ').toLowerCase();
+        const qMatch = !q || haystack.includes(q);
+        const pbmMatch = pbm === 'all' || f.pbmType === pbm;
+        let contactMatch = contact === 'all';
+        if (contact === 'published') contactMatch = !!f.email;
+        if (contact === 'candidate') contactMatch = f.contactType === 'candidate' || f.contactType === 'published';
+        if (contact === 'form') contactMatch = f.contactType === 'form';
+        return qMatch && pbmMatch && contactMatch;
+      }).sort((a, b) => a.state.localeCompare(b.state) || a.city.localeCompare(b.city) || a.firm.localeCompare(b.firm));
+      resultMeta.textContent = `${filtered.length} of ${firms.length} firms · sorted by state, then city`;
+      if (!filtered.length) {
+        rows.innerHTML = '<div class="empty">No firms match these filters. Try widening the PBM or contact selection.</div>';
+        return;
+      }
+      rows.innerHTML = filtered.map((f, index) => `
+        <article class="firm-row" role="row" data-row="${index}">
+          <div class="row-main">
+            <div class="location"><span class="state">${escapeHtml(f.state)}</span><b>${escapeHtml(f.city)}</b></div>
+            <div class="firm-name"><a href="${escapeHtml(f.url)}" target="_blank" rel="noopener">${escapeHtml(f.firm)} ↗</a><small>${f.health.startsWith('Healthcare') || f.health.includes('Healthcare') ? 'Healthcare practice' : 'Healthcare-adjacent coverage'}</small></div>
+            <div class="relevance"><span class="badge ${escapeHtml(f.pbmType)}">${badgeLabel(f.pbmType)}</span><small style="display:block;margin-top:7px;color:var(--muted)">${escapeHtml(f.pbm)}</small></div>
+            <div class="contact">${contactMarkup(f)}</div>
+            <div class="model">${escapeHtml(f.model)}</div>
+            <button class="expand" type="button" aria-expanded="false" aria-label="Expand ${escapeHtml(f.firm)} details">+</button>
+          </div>
+          <div class="row-detail">
+            <div class="detail-block"><h4>Healthcare practice</h4><p>${escapeHtml(f.health)}</p></div>
+            <div class="detail-block"><h4>Other offices / reach</h4><p>${escapeHtml(f.offices)}</p></div>
+            <div class="detail-block"><h4>Evidence note</h4><p>${escapeHtml(f.source)}</p><span class="source-chip">Snapshot · Oct 15, 2026</span></div>
+          </div>
+        </article>`).join('');
+    }
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+    [search, pbmFilter, contactFilter].forEach(el => el.addEventListener(el.tagName === 'INPUT' ? 'input' : 'change', render));
+    rows.addEventListener('click', async function(event) {
+      const expand = event.target.closest('.expand');
+      if (expand) {
+        const row = expand.closest('.firm-row');
+        const next = !row.classList.contains('open');
+        row.classList.toggle('open', next);
+        expand.setAttribute('aria-expanded', String(next));
+      }
+      const copy = event.target.closest('.copy-btn');
+      if (copy) {
+        try { await navigator.clipboard.writeText(copy.dataset.copy); showToast('Email copied'); }
+        catch (error) { showToast('Copy unavailable—select the email instead'); }
+      }
+    });
+    render();
+  </script>
+</body>
+</html>
